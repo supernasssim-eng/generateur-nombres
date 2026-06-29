@@ -1,122 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [nombre, setNombre] = useState(0);
+  const [historique, setHistorique] = useState([]);
+
+  function generer() {
+    const nouveauNombre = Math.floor(Math.random() * 100) + 1;
+    setNombre(nouveauNombre);
+    setHistorique([nouveauNombre, ...historique]);
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+    <div style={{ background: "#1a1a2e", minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", padding: "40px", color: "white" }}>
+      <h1>🎲 Générateur de nombres</h1>
+      <p style={{ fontSize: "80px", fontWeight: "bold", color: "#6c63ff", margin: "20px" }}>
+        {nombre}
+      </p>
+      <button onClick={generer} style={{ padding: "15px 40px", background: "#6c63ff", color: "white", border: "none", borderRadius: "10px", fontSize: "16px", cursor: "pointer", marginBottom: "30px" }}>
+        🎲 Générer !
+      </button>
+      <div style={{ background: "rgba(255,255,255,0.05)", borderRadius: "15px", padding: "20px", width: "300px" }}>
+        <h2 style={{ textAlign: "center", marginBottom: "15px" }}>Historique</h2>
+        {historique.length === 0 ? (
+          <p style={{ textAlign: "center", color: "rgba(255,255,255,0.4)" }}>Aucun nombre généré</p>
+        ) : (
+          historique.map((n, index) => (
+            <p key={index} style={{ padding: "8px", background: "rgba(108,99,255,0.2)", borderRadius: "8px", marginBottom: "8px", textAlign: "center" }}>
+              #{index + 1} — {n}
+            </p>
+          ))
+        )}
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
